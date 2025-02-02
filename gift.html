@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Gift 🎁</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .floating-emoji {
+            position: fixed;
+            font-size: 24px;
+            pointer-events: none;
+            animation: float 20s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 100vh) rotate(0deg);
+            }
+            100% {
+                transform: translate(0, -100vh) rotate(360deg);
+            }
+        }
+
+        .images-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .image-wrapper {
+            position: absolute;
+            width: 100px;  /* smaller square size */
+            height: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gift-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            z-index: 2;
+            margin-top: 30px;
+        }
+
+        .gift-button {
+            padding: 8px 30px;
+            font-size: 14px;
+            border: 1px solid #adadad;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: normal;
+            color: black;
+            background: #e1e1e1;
+            background: linear-gradient(180deg, #fff 0%, #e1e1e1 100%);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1),
+                        0 0 10px rgba(255,255,255,0.5);  /* White glow */
+            min-width: 120px;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .gift-button:hover {
+            background: #e5f1fb;
+            background: linear-gradient(180deg, #f2f9fe 0%, #e5f1fb 100%);
+            border-color: #0078d7;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1),
+                        0 0 15px rgba(255,255,255,0.8);  /* Stronger glow on hover */
+        }
+
+        .gift-button:active {
+            background: #cce4f7;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1),
+                        0 0 8px rgba(255,255,255,0.4);  /* Subtle glow when pressed */
+        }
+
+        /* Add these new styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #f0f0f0;
+            border: 1px solid #999;
+            border-radius: 3px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+            width: 600px;
+            max-height: 80vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .modal-header {
+            background: linear-gradient(180deg, #fff 0%, #e1e1e1 100%);
+            padding: 8px 10px;
+            border-bottom: 1px solid #999;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: move;
+        }
+
+        .modal-title {
+            font-size: 12px;
+            color: #333;
+            user-select: none;
+        }
+
+        .close-button {
+            width: 24px;
+            height: 24px;
+            background: #e81123;
+            border: 1px solid #999;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 3px;
+        }
+
+        .close-button:hover {
+            background: #f1707a;
+        }
+
+        .modal-content {
+            padding: 20px;
+            overflow-y: auto;
+            max-height: calc(80vh - 40px);
+            background: white;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <!-- Background emojis - now with more hearts! -->
+    <div class="floating-emoji" style="left: 5%; animation-delay: -1s;">💝</div>
+    <div class="floating-emoji" style="left: 12%; animation-delay: -3s;">💖</div>
+    <div class="floating-emoji" style="left: 18%; animation-delay: -5s;">💗</div>
+    <div class="floating-emoji" style="left: 25%; animation-delay: -7s;">💓</div>
+    <div class="floating-emoji" style="left: 32%; animation-delay: -9s;">💕</div>
+    <div class="floating-emoji" style="left: 38%; animation-delay: -11s;">💘</div>
+    <div class="floating-emoji" style="left: 45%; animation-delay: -13s;">💖</div>
+    <div class="floating-emoji" style="left: 52%; animation-delay: -15s;">💝</div>
+    <div class="floating-emoji" style="left: 58%; animation-delay: -17s;">💗</div>
+    <div class="floating-emoji" style="left: 65%; animation-delay: -19s;">💓</div>
+    <div class="floating-emoji" style="left: 72%; animation-delay: -21s;">💕</div>
+    <div class="floating-emoji" style="left: 78%; animation-delay: -23s;">💘</div>
+    <div class="floating-emoji" style="left: 85%; animation-delay: -25s;">💖</div>
+    <div class="floating-emoji" style="left: 92%; animation-delay: -27s;">💝</div>
+    <div class="floating-emoji" style="left: 98%; animation-delay: -29s;">💗</div>
+    <div class="floating-emoji" style="left: 8%; animation-delay: -31s;">💓</div>
+    <div class="floating-emoji" style="left: 15%; animation-delay: -33s;">💕</div>
+    <div class="floating-emoji" style="left: 22%; animation-delay: -35s;">💘</div>
+    <div class="floating-emoji" style="left: 28%; animation-delay: -37s;">💖</div>
+    <div class="floating-emoji" style="left: 35%; animation-delay: -39s;">💝</div>
+    <div class="floating-emoji" style="left: 42%; animation-delay: -41s;">💗</div>
+    <div class="floating-emoji" style="left: 48%; animation-delay: -43s;">💓</div>
+    <div class="floating-emoji" style="left: 55%; animation-delay: -45s;">💕</div>
+    <div class="floating-emoji" style="left: 62%; animation-delay: -47s;">💘</div>
+    <div class="floating-emoji" style="left: 68%; animation-delay: -49s;">💖</div>
+    <div class="floating-emoji" style="left: 75%; animation-delay: -51s;">💝</div>
+    <div class="floating-emoji" style="left: 82%; animation-delay: -53s;">💗</div>
+    <div class="floating-emoji" style="left: 88%; animation-delay: -55s;">💓</div>
+    <div class="floating-emoji" style="left: 95%; animation-delay: -57s;">💕</div>
+
+    <div class="images-container" id="imagesContainer">
+        <!-- Images will be added dynamically via JavaScript -->
+    </div>
+
+    <div class="gift-container">
+        <button class="gift-button">Gift 1</button>
+        <button class="gift-button">Gift 2</button>
+        <button class="gift-button">Gift 3</button>
+    </div>
+
+    <div class="modal-overlay" id="overlay"></div>
+    
+    <div class="modal" id="gift1Modal">
+        <div class="modal-header">
+            <div class="modal-title">Gift 1</div>
+            <button class="close-button">&times;</button>
+        </div>
+        <div class="modal-content">
+            <p>Shyla,</p>
+            <p>I totally did not spend 2 hours on this. But whatever, you're worth it, it doesn't matter. My eyes burn holy shit.</p>
+            <p>Open GIFT 2 NOW!</p>
+        </div>
+    </div>
+
+    <div class="modal" id="gift2Modal">
+        <div class="modal-header">
+            <div class="modal-title">Gift 2</div>
+            <button class="close-button">&times;</button>
+        </div>
+        <div class="modal-content">
+            <p>I wanna start this off by saying that i miss you so fucking much. I miss your face, your smile, everything AND most importantly, rachel and samantha, how you doing? OKAY look, despite everything that happened within the span of August 2024 till now, I wouldn't wanna go through any of that with anyone else. You're the only person I wanna have all these good moments and bad moments with. You're so pretty whattttt who said that what bro hop off my damn website</p>
+            <p>OPEN GIFT 3!</p>
+        </div>
+    </div>
+
+    <div class="modal" id="gift3Modal">
+        <div class="modal-header">
+            <div class="modal-title">Gift 3</div>
+            <button class="close-button">&times;</button>
+        </div>
+        <div class="modal-content">
+            <p>I wish I could see you right now. I still remeber every single thing about the shit that happened when you came here to visit, I remember us hanging out on the top of the maintenance office, then walking on 9th floor A block. I remember us on the terrace of the 4th floor where we took pictures together, when you gave me a bite of your mcdonalds pizza puff thing and my dumbass didnt take it as a hint in the slightest. I REMEMBER THE CAR RIDE BACK HOME FROM THAT RESTAURANT OUR FAMILIES WENT TO THAT WAS FUN. Bro holy shit i miss you so much, I cant wait to be w you this december and do everything we talk about over text, yeah that includes railing, sorry i had to say that BRO HOP OFF MY WEBSITE sorry about that.</p>
+            <p>ANYWAY HAPPY VALENTINES AND I MISS YOUUU</p>
+        </div>
+    </div>
+
+    <script>
+        // Array of image paths
+        const images = [
+            'images/kanye1.jpg',
+            'images/kanye2.jpg',
+            'images/kanye3.jpg',
+            'images/drew1.jpg',
+            'images/drew2.jpg',
+            'images/drew3.jpg',
+            'images/food1.jpg',
+            'images/food2.jpg'
+        ];
+
+        const container = document.getElementById('imagesContainer');
+        const imageSize = 100;  // Size of each image square
+        
+        // Calculate circle parameters
+        const radius = 300;     // Radius of the circle
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        
+        // Create and position images in a circle
+        images.forEach((src, index) => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'image-wrapper';
+            
+            // Calculate position on circle
+            const angle = (index / images.length) * 2 * Math.PI;
+            const x = centerX + radius * Math.cos(angle) - (imageSize / 2);
+            const y = centerY + radius * Math.sin(angle) - (imageSize / 2);
+            
+            wrapper.style.left = `${x}px`;
+            wrapper.style.top = `${y}px`;
+            
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = `Image ${index + 1}`;
+            
+            wrapper.appendChild(img);
+            container.appendChild(wrapper);
+        });
+
+        // Modal functionality
+        const overlay = document.getElementById('overlay');
+        const modals = document.querySelectorAll('.modal');
+        const closeButtons = document.querySelectorAll('.close-button');
+        const giftButtons = document.querySelectorAll('.gift-button');
+
+        // Function to make modal draggable
+        function makeDraggable(modal) {
+            const header = modal.querySelector('.modal-header');
+            let isDragging = false;
+            let currentX;
+            let currentY;
+            let initialX;
+            let initialY;
+            let xOffset = 0;
+            let yOffset = 0;
+
+            header.addEventListener('mousedown', dragStart);
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', dragEnd);
+
+            function dragStart(e) {
+                initialX = e.clientX - xOffset;
+                initialY = e.clientY - yOffset;
+
+                if (e.target === header) {
+                    isDragging = true;
+                }
+            }
+
+            function drag(e) {
+                if (isDragging) {
+                    e.preventDefault();
+                    currentX = e.clientX - initialX;
+                    currentY = e.clientY - initialY;
+                    xOffset = currentX;
+                    yOffset = currentY;
+
+                    modal.style.transform = `translate(${currentX}px, ${currentY}px)`;
+                }
+            }
+
+            function dragEnd() {
+                isDragging = false;
+            }
+        }
+
+        // Add click handlers for gift buttons
+        giftButtons.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                const modal = document.getElementById(`gift${index + 1}Modal`);
+                modal.style.display = 'block';
+                overlay.style.display = 'block';
+                modal.style.transform = 'translate(-50%, -50%)';  // Reset position
+            });
+        });
+
+        // Add click handlers for close buttons
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal');
+                modal.style.display = 'none';
+                overlay.style.display = 'none';
+            });
+        });
+
+        // Close modal when clicking overlay
+        overlay.addEventListener('click', () => {
+            modals.forEach(modal => {
+                modal.style.display = 'none';
+            });
+            overlay.style.display = 'none';
+        });
+
+        // Make all modals draggable
+        modals.forEach(makeDraggable);
+    </script>
+</body>
+</html>

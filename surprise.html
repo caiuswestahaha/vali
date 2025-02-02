@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Surprise! 💝</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #FFB6C1, #FFC0CB);
+            overflow: hidden;
+        }
+
+        .background-emoji {
+            position: fixed;
+            font-size: 40px;
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: -1;
+            animation: floatEmoji 3s infinite ease-in-out;
+        }
+
+        @keyframes floatEmoji {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        .valentine-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: 80px;
+            background: linear-gradient(45deg, #FF1493, #FF69B4);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 2px rgba(255, 255, 255, 0.9),
+                         0 0 4px rgba(255, 255, 255, 0.9),
+                         0 0 6px rgba(255, 255, 255, 0.9);
+            animation: heartbeat 1.5s ease-in-out infinite;
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 40px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .button-container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;    /* Vertical stack */
+            align-items: center;       /* Center buttons */
+            gap: 12px;                 /* Space between buttons */
+            margin-top: -15px;
+        }
+
+        .choice-button {
+            padding: 8px 30px;
+            font-size: 14px;
+            border: 1px solid #adadad;
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: normal;
+            color: black;
+            background: #e1e1e1;
+            background: linear-gradient(180deg, #fff 0%, #e1e1e1 100%);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            min-width: 80px;
+        }
+
+        .choice-button:hover {
+            background: #e5f1fb;
+            background: linear-gradient(180deg, #f2f9fe 0%, #e5f1fb 100%);
+            border-color: #0078d7;
+        }
+
+        .choice-button:active {
+            background: #cce4f7;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .yes-button {
+            background: #0078d7;
+            background: linear-gradient(180deg, #0078d7 0%, #006cc1 100%);
+            border-color: #005499;
+            color: white;
+        }
+
+        .yes-button:hover {
+            background: #1a86d9;
+            background: linear-gradient(180deg, #1a86d9 0%, #1177cd 100%);
+            border-color: #005499;
+        }
+
+        .yes-button:active {
+            background: #006cc1;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .no-button {
+            background: linear-gradient(180deg, #fff 0%, #e1e1e1 100%);
+            border-color: #adadad;
+            position: fixed;
+            transition: all 0.08s cubic-bezier(0.2, 0, 0.4, 1);
+        }
+
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f2d74e;
+            position: absolute;
+            top: -10px;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+
+        .heart-decoration {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0.8;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .heart1 { top: -20px; left: 10px; animation-delay: 0s; }
+        .heart2 { top: -10px; right: 20px; animation-delay: -1s; }
+        .heart3 { bottom: -20px; left: 30px; animation-delay: -2s; }
+        .heart4 { bottom: -10px; right: 40px; animation-delay: -3s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .kanye-bg {
+            position: fixed;
+            width: 180px;
+            height: 180px;
+            pointer-events: none;
+            z-index: -1;
+            animation: rotateKanye 8s infinite linear;
+        }
+
+        .kanye-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Carefully spaced positions */
+        .kanye1 { top: 2%; left: 2%; animation-delay: 0s; }
+        .kanye2 { top: 2%; right: 2%; animation-delay: -1s; }
+        .kanye3 { top: 2%; left: 35%; animation-delay: -2s; }
+        .kanye4 { top: 25%; left: 15%; animation-delay: -3s; }
+        .kanye5 { top: 25%; right: 15%; animation-delay: -4s; }
+        .kanye6 { top: 45%; left: 2%; animation-delay: -5s; }
+        .kanye7 { top: 45%; right: 2%; animation-delay: -6s; }
+        .kanye8 { bottom: 20%; left: 2%; animation-delay: -7s; }
+        .kanye9 { bottom: 20%; right: 2%; animation-delay: -8s; }
+        .kanye10 { bottom: 2%; left: 35%; animation-delay: -9s; }
+
+        @keyframes rotateKanye {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.1s ease-out;
+        }
+
+        .kanye-popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1000;
+            background: black;
+            opacity: 0;
+            transition: opacity 0.2s ease-in;
+        }
+
+        .kanye-popup img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .fade-in {
+            opacity: 1 !important;
+        }
+
+        .center-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+            margin-bottom: 20px;
+            margin-top: -40px;
+        }
+
+        .center-kanye {
+            width: 100%;
+            height: 100%;
+            animation: rotateKanye 8s infinite linear;
+            position: relative;
+            z-index: 1;
+            border-radius: 50%;  /* Simple circle */
+            overflow: hidden;    /* Ensure image stays in circle */
+        }
+
+        .center-kanye img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;  /* Circle for image too */
+        }
+
+        .emoji-border {
+            position: absolute;
+            font-size: 35px;
+            animation: float 3s infinite ease-in-out;
+        }
+
+        /* Emoji border positions */
+        .emoji1 { top: -30px; left: -30px; animation-delay: 0s; }
+        .emoji2 { top: -30px; right: -30px; animation-delay: -0.5s; }
+        .emoji3 { bottom: -30px; left: -30px; animation-delay: -1s; }
+        .emoji4 { bottom: -30px; right: -30px; animation-delay: -1.5s; }
+        .emoji5 { top: -30px; left: 50%; transform: translateX(-50%); animation-delay: -2s; }
+        .emoji6 { bottom: -30px; left: 50%; transform: translateX(-50%); animation-delay: -2.5s; }
+        .emoji7 { left: -30px; top: 50%; transform: translateY(-50%); animation-delay: -3s; }
+        .emoji8 { right: -30px; top: 50%; transform: translateY(-50%); animation-delay: -3.5s; }
+
+        @keyframes rotateKanye {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <audio id="yaySound" preload="auto">
+        <source src="sounds/yay.mp3" type="audio/mpeg">
+    </audio>
+
+    <h1 class="valentine-text">Will you be my Valentine?</h1>
+
+    <!-- Background emojis from index.html -->
+    <div class="background-emoji" style="top: 10%; left: 10%;">💝</div>
+    <div class="background-emoji" style="top: 20%; left: 20%;">🌸</div>
+    <div class="background-emoji" style="top: 15%; left: 30%;">💖</div>
+    <div class="background-emoji" style="top: 25%; left: 40%;">🌺</div>
+    <div class="background-emoji" style="top: 10%; left: 50%;">💗</div>
+    <div class="background-emoji" style="top: 20%; left: 60%;">🌸</div>
+    <div class="background-emoji" style="top: 15%; left: 70%;">💝</div>
+    <div class="background-emoji" style="top: 25%; left: 80%;">🌺</div>
+    
+    <div class="background-emoji" style="top: 40%; left: 15%;">🌸</div>
+    <div class="background-emoji" style="top: 50%; left: 25%;">💖</div>
+    <div class="background-emoji" style="top: 45%; left: 35%;">🌺</div>
+    <div class="background-emoji" style="top: 55%; left: 45%;">💝</div>
+    <div class="background-emoji" style="top: 40%; left: 55%;">💗</div>
+    <div class="background-emoji" style="top: 50%; left: 65%;">🌸</div>
+    <div class="background-emoji" style="top: 45%; left: 75%;">💖</div>
+    <div class="background-emoji" style="top: 55%; left: 85%;">🌺</div>
+    
+    <div class="background-emoji" style="top: 70%; left: 10%;">💝</div>
+    <div class="background-emoji" style="top: 80%; left: 20%;">🌸</div>
+    <div class="background-emoji" style="top: 75%; left: 30%;">💖</div>
+    <div class="background-emoji" style="top: 85%; left: 40%;">🌺</div>
+    <div class="background-emoji" style="top: 70%; left: 50%;">💗</div>
+    <div class="background-emoji" style="top: 80%; left: 60%;">🌸</div>
+    <div class="background-emoji" style="top: 75%; left: 70%;">💝</div>
+    <div class="background-emoji" style="top: 85%; left: 80%;">🌺</div>
+
+    <!-- Center Kanye with emoji border -->
+    <div class="center-container">
+        <div class="center-kanye">
+            <img src="images/kanye1.jpg" alt="Kanye">
+        </div>
+        <div class="emoji-border emoji1">💝</div>
+        <div class="emoji-border emoji2">💖</div>
+        <div class="emoji-border emoji3">💗</div>
+        <div class="emoji-border emoji4">💘</div>
+        <div class="emoji-border emoji5">🌸</div>
+        <div class="emoji-border emoji6">🌺</div>
+        <div class="emoji-border emoji7">💕</div>
+        <div class="emoji-border emoji8">💓</div>
+    </div>
+
+    <!-- Flashbang elements -->
+    <div class="popup-overlay"></div>
+    <div class="kanye-popup">
+        <img src="images/kanye4.jpg" alt="Kanye">
+    </div>
+
+    <div class="button-container">
+        <button class="choice-button yes-button">Yes</button>
+        <button class="choice-button no-button">No</button>
+    </div>
+
+    <script>
+        const noButton = document.querySelector('.no-button');
+        const yesButton = document.querySelector('.yes-button');
+        const overlay = document.querySelector('.popup-overlay');
+        const kanyePopup = document.querySelector('.kanye-popup');
+        const yayAudio = document.getElementById('yaySound');
+
+        function setInitialNoButtonPosition() {
+            const yesRect = yesButton.getBoundingClientRect();
+            noButton.style.left = `${yesRect.left}px`;
+            noButton.style.top = `${yesRect.bottom + 12}px`;
+        }
+
+        window.addEventListener('load', setInitialNoButtonPosition);
+        window.addEventListener('resize', setInitialNoButtonPosition);
+
+        document.addEventListener('mousemove', (e) => {
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+            const buttonRect = noButton.getBoundingClientRect();
+            const buttonX = buttonRect.left + buttonRect.width / 2;
+            const buttonY = buttonRect.top + buttonRect.height / 2;
+
+            const distance = Math.sqrt(
+                Math.pow(mouseX - buttonX, 2) + 
+                Math.pow(mouseY - buttonY, 2)
+            );
+
+            if (distance < 100) {
+                const angle = Math.atan2(mouseY - buttonY, mouseX - buttonX);
+                let newX = buttonX - Math.cos(angle) * 200;
+                let newY = buttonY - Math.sin(angle) * 200;
+
+                const padding = 50;
+                newX = Math.min(Math.max(padding, newX), window.innerWidth - padding - buttonRect.width);
+                newY = Math.min(Math.max(padding, newY), window.innerHeight - padding - buttonRect.height);
+
+                noButton.style.left = `${newX}px`;
+                noButton.style.top = `${newY}px`;
+            }
+        });
+
+        yesButton.addEventListener('click', () => {
+            // Play yay sound
+            yayAudio.volume = 0.5;
+            yayAudio.play();
+            
+            // Flashbang effect
+            overlay.style.display = 'block';
+            overlay.classList.add('fade-in');
+            
+            setTimeout(() => {
+                kanyePopup.style.display = 'block';
+                kanyePopup.classList.add('fade-in');
+                overlay.classList.remove('fade-in');
+            }, 100);
+
+            // Navigate to gift.html after effects
+            setTimeout(() => {
+                window.location.href = 'gift.html';
+            }, 2000);
+        });
+    </script>
+</body>
+</html> 
